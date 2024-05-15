@@ -6,7 +6,7 @@
   "module": "es/index.js",
   "unpkg": "dist/index.js",
   "jsdelivr": "dist/index.js",
-  "types": "es/index.d.ts",
+  "types": "lib/index.d.ts",
   "homepage": "https://site.logic-flow.cn",
   "repository": {
     "type": "git",
