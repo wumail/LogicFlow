@@ -1435,7 +1435,28 @@ export namespace LogicFlow {
     value: string
     editable?: boolean
     draggable?: boolean
+    content?: string
   } & Point
+
+  export type LabelType = {
+    type?: string
+    relateId?: string
+    minWidth?: string | null
+    maxWidth?: string | null
+    minHeight?: string | null
+    maxHeight?: string | null
+    style?: object
+    virtical?: boolean
+    isFocus?: boolean
+    x?: number
+    y?: number
+  } & TextConfig
+
+  export type LabelConfig = {
+    verticle: boolean
+    multiple: boolean
+    max?: number
+  }
 
   export type AppendConfig = {
     startIndex: number
@@ -1468,7 +1489,7 @@ export namespace LogicFlow {
 
   export interface FakeNodeConfig {
     type: string
-    text?: TextConfig | string
+    text?: LabelType[] | LabelType | string
     properties?: PropertiesType
 
     [key: string]: unknown
@@ -1487,7 +1508,7 @@ export namespace LogicFlow {
     type: string
     x: number
     y: number
-    text?: TextConfig | string
+    text?: LabelType[] | LabelType | string[] | string
     zIndex?: number
     properties?: PropertiesType
     virtual?: boolean // 是否虚拟节点
@@ -1498,7 +1519,7 @@ export namespace LogicFlow {
 
   export interface NodeData extends NodeConfig {
     id: string
-    text?: TextConfig
+    text?: LabelType[] | LabelType
 
     [key: string]: unknown
   }
@@ -1514,7 +1535,7 @@ export namespace LogicFlow {
 
     startPoint?: Point
     endPoint?: Point
-    text?: TextConfig | string
+    text?: LabelType[] | LabelType | string[] | string
     pointsList?: Point[]
     zIndex?: number
     properties?: PropertiesType
@@ -1523,7 +1544,7 @@ export namespace LogicFlow {
   export interface EdgeData extends EdgeConfig {
     id: string
     type: string
-    text?: TextConfig
+    text?: LabelType | LabelType[]
     startPoint: Point
     endPoint: Point
 
