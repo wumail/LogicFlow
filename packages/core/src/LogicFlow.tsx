@@ -1059,6 +1059,7 @@ export class LogicFlow {
     render(
       <Graph
         getView={this.getView}
+        extension={this.extension}
         tool={this.tool}
         options={this.options}
         dnd={this.dnd}
