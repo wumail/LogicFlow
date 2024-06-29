@@ -35,7 +35,7 @@ export class UserModel extends RectNodeModel {
     this.stroke = '#18905F'
     this.fill = 'red'
     this.radius = 10
-    this.text.value = 'id:' + this.id
+    // this.text.value = 'id:' + this.id
   }
 }
 

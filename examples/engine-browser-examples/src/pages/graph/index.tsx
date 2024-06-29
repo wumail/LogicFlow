@@ -9,6 +9,7 @@ import { combine, square, star, uml, user, reactNode } from './nodes'
 import { animation, connection } from './edges'
 
 import GraphConfigData = LogicFlow.GraphConfigData
+import GraphData = LogicFlow.GraphData
 import './index.less'
 
 const config: Partial<LogicFlow.Options> = {
@@ -134,6 +135,17 @@ const data: GraphConfigData = {
       x: 800,
       y: 300,
     },
+    {
+      id: 'custom-react-node-1',
+      text: {
+        x: 200,
+        y: 500,
+        value: 'custom-react-node',
+      },
+      type: 'custom-react-node',
+      x: 200,
+      y: 500,
+    },
   ],
   edges: [
     {
@@ -169,17 +181,6 @@ const data: GraphConfigData = {
       type: 'bezier',
       text: 'bezier',
     },
-    {
-      id: 'custom-react-node-1',
-      text: {
-        x: 200,
-        y: 500,
-        value: 'custom-react-node',
-      },
-      type: 'custom-react-node',
-      x: 200,
-      y: 500,
-    },
   ],
 }
 
@@ -201,7 +202,7 @@ export default function BasicNode() {
     ]
 
     map(elements, (customElement) => {
-      lf.register(customElement)
+      lf.register(customElement as LogicFlow.RegisterConfig)
     })
   }
   const registerEvents = (lf: LogicFlow) => {
@@ -259,7 +260,7 @@ export default function BasicNode() {
         background: {
           color: '#FFFFFF',
         },
-        // grid: false,
+        grid: true,
         edgeTextDraggable: true,
         edgeType: 'bezier',
         style: {
@@ -345,7 +346,7 @@ export default function BasicNode() {
   const handleRefreshGraph = () => {
     const lf = lfRef.current
     if (lf) {
-      const data = lf.getGraphData()
+      const data = lf.getGraphRawData()
       console.log('current graph data', data)
       const refreshData = LogicFlowUtil.refreshGraphId(data)
       console.log('after refresh graphId', data)
@@ -372,7 +373,7 @@ export default function BasicNode() {
 
   const handleTurnAnimationOn = () => {
     if (lfRef.current) {
-      const { edges } = lfRef.current.getGraphData() as GraphConfigData
+      const { edges } = lfRef.current.getGraphData() as GraphData
       forEach(edges, (edge) => {
         lfRef.current?.openEdgeAnimation(edge.id)
       })
@@ -380,7 +381,7 @@ export default function BasicNode() {
   }
   const handleTurnAnimationOff = () => {
     if (lfRef.current) {
-      const { edges } = lfRef.current.getGraphData() as GraphConfigData
+      const { edges } = lfRef.current.getGraphData() as GraphData
       forEach(edges, (edge) => {
         lfRef.current?.closeEdgeAnimation(edge.id)
       })

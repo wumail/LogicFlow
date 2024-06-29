@@ -28,7 +28,7 @@ type IGraphProps = {
   tool: Tool
   options: LFOptions.Definition
   dnd: DnD
-  extension: Record<string, LogicFlow.Extension>
+  extension: Record<string, LogicFlow.Extension | LogicFlow.ExtensionDefinition>
   snaplineModel?: SnaplineModel
   graphModel: GraphModel
 }

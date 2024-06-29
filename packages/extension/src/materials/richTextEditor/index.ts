@@ -54,6 +54,7 @@ const ColorPickerButton = MediumEditor.extensions.button.extend({
 
 class RichTextEditor {
   static pluginName = 'richTextEditor'
+
   enable: boolean = false
   editorOptions: any
   editor: MediumEditor | null = null
