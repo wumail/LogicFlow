@@ -11,9 +11,7 @@ export class EllipseNode extends BaseNode<IEllipseNodeProps> {
   getShape() {
     const { model } = this.props
     const style = model.getNodeStyle()
-    return (
-      <Ellipse {...style} x={model.x} y={model.y} rx={model.rx} ry={model.ry} />
-    )
+    return <Ellipse {...style} rx={model.rx} ry={model.ry} />
   }
 }
 

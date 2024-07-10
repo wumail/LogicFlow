@@ -60,12 +60,12 @@ export class DiamondNodeModel extends BaseNodeModel {
   }
 
   @computed get points(): PointTuple[] {
-    const { x, y, rx, ry } = this
+    const { rx, ry } = this
     return [
-      [x, y - ry],
-      [x + rx, y],
-      [x, y + ry],
-      [x - rx, y],
+      [0, -ry],
+      [rx, 0],
+      [0, ry],
+      [-rx, 0],
     ]
   }
 

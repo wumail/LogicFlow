@@ -10,14 +10,11 @@ export type IPolygonNodeProps = {
 export class PolygonNode extends BaseNode<IPolygonNodeProps> {
   getShape() {
     const { model } = this.props
-    const { x, y, width, height, points } = model as PolygonNodeModel
+    const { points } = model as PolygonNodeModel
     const style = model.getNodeStyle()
-    const attr = {
-      transform: `matrix(1 0 0 1 ${x - width / 2} ${y - height / 2})`,
-    }
     return (
-      <g {...attr}>
-        <Polygon {...style} points={points} x={x} y={y} />
+      <g>
+        <Polygon {...style} points={points} x={0} y={0} />
       </g>
     )
   }

@@ -156,10 +156,10 @@ export type NodeBBox = {
 export const getNodeBBox = (node: BaseNodeModel): NodeBBox => {
   const { x, y, width, height } = node
   return {
-    minX: x - width / 2,
-    minY: y - height / 2,
-    maxX: x + width / 2,
-    maxY: y + height / 2,
+    minX: -width / 2,
+    minY: -height / 2,
+    maxX: width / 2,
+    maxY: height / 2,
     x,
     y,
     width,

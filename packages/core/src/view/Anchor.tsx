@@ -165,6 +165,13 @@ class Anchor extends Component<IProps, IState> {
         this.moveAnchorEnd(endX - translateX, endY - translateY)
       })
     }
+    console.log(
+      this.state.endX,
+      this.state.endY,
+      '<-',
+      this.state.startX,
+      this.state.startY,
+    )
     eventCenter.emit(EventType.ANCHOR_DRAG, {
       data: anchorData,
       e: event,
@@ -376,29 +383,38 @@ class Anchor extends Component<IProps, IState> {
         >
           {this.getAnchorShape()}
         </g>
-        {this.isShowLine() &&
-          (this.customTrajectory ? (
-            this.customTrajectory({
-              sourcePoint: {
-                x: startX,
-                y: startY,
-              },
-              targetPoint: {
-                x: endX,
-                y: endY,
-              },
-              ...edgeStyle,
-            })
-          ) : (
-            <Line
-              x1={startX}
-              y1={startY}
-              x2={endX}
-              y2={endY}
-              {...edgeStyle}
-              pointer-events="none"
-            />
-          ))}
+        <g
+          transform={`translate(${-this.props.nodeModel.x} ${-this.props
+            .nodeModel.y})`}
+        >
+          {this.isShowLine() &&
+            (this.customTrajectory ? (
+              this.customTrajectory({
+                sourcePoint: {
+                  x: startX,
+                  y: startY,
+                },
+                targetPoint: {
+                  x: endX,
+                  y: endY,
+                },
+                ...edgeStyle,
+              })
+            ) : (
+              <g>
+                <Line
+                  x1={startX}
+                  y1={startY}
+                  x2={endX}
+                  y2={endY}
+                  {...edgeStyle}
+                  pointer-events="none"
+                />
+                <circle fill={'red'} r={4} cx={startX} cy={startY}></circle>
+                <circle fill={'green'} r={4} cx={endX} cy={endY}></circle>
+              </g>
+            ))}
+        </g>
       </g>
     )
   }

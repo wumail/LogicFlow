@@ -46,19 +46,22 @@ export class OutlineOverlay extends Component<IProps> {
             }
           }
           nodeOutline.push(
-            <Rect
-              transform={element.transform}
-              className="lf-outline-node"
-              {...{
-                x,
-                y,
-                // width: width + 10,
-                // height: height + 10,
-                width: width + 10,
-                height: height + 10,
-              }}
-              {...attributes}
-            />,
+            <g transform={`translate(${x} ${y})`}>
+              <g transform={`rotate(${(element.rotate * 180) / Math.PI})`}>
+                <Rect
+                  className="lf-outline-node"
+                  {...{
+                    // width: width + 10,
+                    x: 0,
+                    y: 0,
+                    // height: height + 10,
+                    width: width + 10,
+                    height: height + 10,
+                  }}
+                  {...attributes}
+                />
+              </g>
+            </g>,
           )
         }
       }

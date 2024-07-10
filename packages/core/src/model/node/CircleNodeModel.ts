@@ -63,12 +63,12 @@ export class CircleNodeModel extends BaseNodeModel {
   }
 
   getDefaultAnchor() {
-    const { x, y, r } = this
+    const { r } = this
     return [
-      { x, y: y - r, id: `${this.id}_0` },
-      { x: x + r, y, id: `${this.id}_1` },
-      { x, y: y + r, id: `${this.id}_2` },
-      { x: x - r, y, id: `${this.id}_3` },
+      { x: 0, y: -r, id: `${this.id}_0` },
+      { x: r, y: 0, id: `${this.id}_1` },
+      { x: 0, y: r, id: `${this.id}_2` },
+      { x: -r, y: 0, id: `${this.id}_3` },
     ]
   }
 

@@ -13,7 +13,7 @@ export class DiamondNode extends BaseNode<IDiamondNodeProps> {
     const style = model.getNodeStyle()
     return (
       <g>
-        <Polygon {...style} points={model.points} x={model.x} y={model.y} />
+        <Polygon {...style} points={model.points} />
       </g>
     )
   }

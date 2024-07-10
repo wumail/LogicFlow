@@ -31,10 +31,10 @@ export class BaseText extends Component<IProps, IState> {
     const { model, graphModel } = this.props
     const { text } = model
     const { editConfigModel } = graphModel
-    const { value, x, y, editable, draggable } = text
+    const { value, editable, draggable } = text
     const attr = {
-      x,
-      y,
+      x: 0,
+      y: 0,
       className: '',
       value,
     }

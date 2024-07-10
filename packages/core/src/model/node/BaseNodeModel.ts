@@ -7,7 +7,7 @@ import {
   formatData,
   getClosestAnchor,
   getZIndex,
-  Matrix,
+  // Matrix,
   pickNodeConfig,
   TranslateMatrix,
 } from '../../util'
@@ -532,23 +532,23 @@ export class BaseNodeModel implements IBaseNodeModel {
    * @returns Point[] 锚点坐标构成的数组
    */
   getAnchorsByOffset(): Model.AnchorConfig[] {
-    const { anchorsOffset, id, x, y } = this
+    const { anchorsOffset, id } = this
     if (anchorsOffset && anchorsOffset.length > 0) {
-      return anchorsOffset.map((el, idx) => {
-        if (el.length) {
-          el = el as LogicFlow.PointTuple // 历史数据格式
+      return anchorsOffset.map((ele, idx) => {
+        if (ele.length) {
+          ele = ele as LogicFlow.PointTuple // 历史数据格式
           return {
             id: `${id}_${idx}`,
-            x: x + el[0],
-            y: y + el[1],
+            x: ele[0],
+            y: ele[1],
           }
         }
-        el = el as Model.AnchorConfig
+        ele = ele as Model.AnchorConfig
         return {
-          ...el,
-          x: x + el.x,
-          y: y + el.y,
-          id: el.id || `${id}_${idx}`,
+          ...ele,
+          x: ele.x,
+          y: ele.y,
+          id: ele.id || `${id}_${idx}`,
         }
       })
     }
@@ -585,16 +585,16 @@ export class BaseNodeModel implements IBaseNodeModel {
 
   get anchors(): Model.AnchorConfig[] {
     const anchors = this.getAnchorsByOffset()
-    const { x, y, rotate } = this
-    anchors.forEach((anchor) => {
-      const { x: anchorX, y: anchorY } = anchor
-      const [e, f] = new Matrix([anchorX, anchorY, 1])
-        .translate(-x, -y)
-        .rotate(rotate)
-        .translate(x, y)[0]
-      anchor.x = e
-      anchor.y = f
-    })
+    // const { x, y, rotate } = this
+    // anchors.forEach((anchor) => {
+    //   const { x: anchorX, y: anchorY } = anchor
+    //   const [e, f] = new Matrix([anchorX, anchorY, 1])
+    //     .translate(-x, -y)
+    //     .rotate(rotate)
+    //     .translate(x, y)[0]
+    //   anchor.x = e
+    //   anchor.y = f
+    // })
     return anchors
   }
 
@@ -643,16 +643,48 @@ export class BaseNodeModel implements IBaseNodeModel {
       deltaY,
       isIgnoreRule,
     )
+    const { x, y, rotate } = this
+
+    const dx = deltaX * Math.cos(rotate) + deltaY * Math.sin(rotate)
+    const dy = deltaY * Math.cos(rotate) - deltaX * Math.sin(rotate)
+
     if (isAllowMoveX) {
-      this.x = this.x + deltaX
+      this.x = x + dx
       this.text && this.moveText(deltaX, 0)
     }
     if (isAllowMoveY) {
-      this.y = this.y + deltaY
+      this.y = y + dy
       this.text && this.moveText(0, deltaY)
     }
+
     return isAllowMoveX || isAllowMoveY
   }
+
+  // @action move(deltaX: number, deltaY: number, isIgnoreRule = false): boolean {
+  //   const { isAllowMoveX, isAllowMoveY } = this.isAllowMoveByXORY(
+  //     deltaX,
+  //     deltaY,
+  //     isIgnoreRule,
+  //   )
+  //   const {x, y, rotate } = this
+
+  //   const dx = deltaX * Math.cos(rotate) + deltaY * Math.sin(rotate)
+  //   const dy = deltaY * Math.cos(rotate) - deltaX * Math.sin(rotate)
+
+  //   // const {x, y } = this
+  //   if (isAllowMoveX) {
+  //     this.x = x + dx
+  //     this.text && this.moveText(dx, 0)
+  //   }
+  //   if (isAllowMoveY) {
+  //     this.y = y + dy
+  //     this.text && this.moveText(0, dy)
+  //   }
+
+  //   this.transform = new TranslateMatrix(-x, -y).rotate(rotate).translate(x, y).toString()
+
+  //   return isAllowMoveX || isAllowMoveY
+  // }
 
   @action getMoveDistance(
     deltaX: number,

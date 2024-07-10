@@ -15,8 +15,8 @@ export class RectNode extends BaseNode<IRectNodeProps> {
     return (
       <Rect
         {...style}
-        x={model.x}
-        y={model.y}
+        x={0}
+        y={0}
         width={model.width}
         height={model.height}
         radius={model.radius}

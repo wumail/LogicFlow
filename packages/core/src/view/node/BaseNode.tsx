@@ -443,17 +443,22 @@ export abstract class BaseNode<P extends IProps> extends Component<P, IState> {
       gridSize,
       transformModel: { SCALE_X },
     } = graphModel
-    const { isHitable, draggable, transform } = model
+    const { isHitable, draggable } = model
     const { className = '', ...restAttributes } = model.getOuterGAttributes()
+    console.log('model', model.x, model.y)
     const nodeShapeInner = (
-      <g className="lf-node-content">
-        <g transform={transform}>
+      <g
+        className="lf-node-content lf-any"
+        transform={`translate(${model.x}, ${model.y})`}
+      >
+        <g transform={`rotate(${(model.rotate * 180) / Math.PI})`}>
           {this.getShape()}
           {this.getText()}
           {allowRotate && this.getRotateControl()}
           {allowResize && this.getResizeControl()}
+          {!hideAnchors && this.getAnchors()}
         </g>
-        {!hideAnchors && this.getAnchors()}
+        <circle r={4} cx={0} cy={0}></circle>
       </g>
     )
     let nodeShape: h.JSX.Element
@@ -472,7 +477,7 @@ export abstract class BaseNode<P extends IProps> extends Component<P, IState> {
       }
       nodeShape = (
         <g
-          className={`${this.getStateClassName()} ${className}`}
+          className={`${this.getStateClassName()} ${className} 123`}
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
           onClick={this.handleClick}

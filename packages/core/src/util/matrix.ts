@@ -84,8 +84,8 @@ export class Matrix extends Array {
 export class RotateMatrix extends Matrix {
   constructor(theta: number) {
     super(
-      new Vector(+Math.cos(theta).toFixed(2), +Math.sin(theta).toFixed(2), 0),
-      new Vector(-Math.sin(theta).toFixed(2), +Math.cos(theta).toFixed(2), 0),
+      new Vector(+Math.cos(theta), +Math.sin(theta), 0),
+      new Vector(-Math.sin(theta), +Math.cos(theta), 0),
       new Vector(0, 0, 1),
     )
     Object.setPrototypeOf(this, RotateMatrix.prototype)

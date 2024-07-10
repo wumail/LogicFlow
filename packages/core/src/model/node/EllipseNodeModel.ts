@@ -66,12 +66,12 @@ export class EllipseNodeModel extends BaseNodeModel {
   }
 
   getDefaultAnchor() {
-    const { x, y, rx, ry } = this
+    const { rx, ry } = this
     return [
-      { x, y: y - ry, id: `${this.id}_0` },
-      { x: x + rx, y, id: `${this.id}_1` },
-      { x, y: y + ry, id: `${this.id}_2` },
-      { x: x - rx, y, id: `${this.id}_3` },
+      { x: 0, y: -ry, id: `${this.id}_0` },
+      { x: rx, y: 0, id: `${this.id}_1` },
+      { x: 0, y: ry, id: `${this.id}_2` },
+      { x: -rx, y: 0, id: `${this.id}_3` },
     ]
   }
 

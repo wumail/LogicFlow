@@ -73,18 +73,11 @@ export class HtmlNode extends BaseNode<IHtmlNodeProps> {
 
   getShape() {
     const { model } = this.props
-    const { x, y, height, width } = model
+    const { height, width } = model
     const style = model.getNodeStyle()
     this.currentProperties = JSON.stringify(model.properties)
     return (
-      <foreignObject
-        {...style}
-        x={x - width / 2}
-        y={y - height / 2}
-        width={width}
-        height={height}
-        ref={this.ref}
-      />
+      <foreignObject {...style} width={width} height={height} ref={this.ref} />
     )
   }
 }

@@ -35,12 +35,12 @@ export class RectNodeModel extends BaseNodeModel {
   }
 
   getDefaultAnchor() {
-    const { x, y, width, height } = this
+    const { width, height } = this
     return [
-      { x, y: y - height / 2, id: `${this.id}_0` },
-      { x: x + width / 2, y, id: `${this.id}_1` },
-      { x, y: y + height / 2, id: `${this.id}_2` },
-      { x: x - width / 2, y, id: `${this.id}_3` },
+      { x: 0, y: -height / 2, id: `${this.id}_0` },
+      { x: width / 2, y: 0, id: `${this.id}_1` },
+      { x: 0, y: height / 2, id: `${this.id}_2` },
+      { x: -width / 2, y: 0, id: `${this.id}_3` },
     ]
   }
 

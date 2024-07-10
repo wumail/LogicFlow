@@ -5,7 +5,7 @@ import LogicFlow from '../LogicFlow'
 import { EventType } from '../constant'
 import EventEmitter from '../event/eventEmitter'
 import { GraphModel, BaseNodeModel } from '../model'
-import { StepDrag, TranslateMatrix, Vector } from '../util'
+import { StepDrag, Vector } from '../util'
 
 interface IRotateControlProps {
   graphModel: GraphModel
@@ -19,6 +19,7 @@ class RotateControlPoint extends Component<IRotateControlProps> {
   private defaultAngle!: number
   normal!: Vector
   stepperDrag: any
+  readonly offset: LogicFlow.PointTuple = [20, -20]
 
   constructor(props: IRotateControlProps) {
     super(props)
@@ -33,6 +34,7 @@ class RotateControlPoint extends Component<IRotateControlProps> {
     const { selectNodes } = graphModel
     const { x, y } = nodeModel
     const { clientX, clientY } = event
+    console.log(clientX, clientY)
     const {
       canvasOverlayPosition: { x: cx, y: cy },
     } = graphModel.getPointByClient({
@@ -40,12 +42,13 @@ class RotateControlPoint extends Component<IRotateControlProps> {
       y: clientY,
     })
     const v = new Vector(cx - x, cy - y)
+    console.log('angle', cx, cy, x, y)
     const angle = this.normal?.angle(v) - this.defaultAngle
-    const matrix = new TranslateMatrix(-x, -y)
-      .rotate(angle)
-      .translate(x, y)
-      .toString()
-    nodeModel.transform = matrix
+    // const matrix = new TranslateMatrix(-x, -y)
+    //   .rotate(angle)
+    //   .translate(x, y)
+    //   .toString()
+    nodeModel.transform = `rotate(${angle})`
     nodeModel.rotate = angle
 
     let nodeIds = map(selectNodes, (node) => node.id)
@@ -89,11 +92,11 @@ class RotateControlPoint extends Component<IRotateControlProps> {
 
   render() {
     const { nodeModel } = this.props
-    const { x, y, width, height } = nodeModel
-    const cx = x + width / 2 + 20
-    const cy = y - height / 2 - 20
+    const { width, height } = nodeModel
+    const cx = width / 2 + 20
+    const cy = -height / 2 - 20
     this.normal = new Vector(1, 0)
-    this.defaultAngle = this.normal.angle(new Vector(cx - x, cy - y))
+    this.defaultAngle = this.normal.angle(new Vector(cx - 0, cy - 0))
     nodeModel.defaultAngle = this.defaultAngle
     return (
       <g className="lf-rotate-control">

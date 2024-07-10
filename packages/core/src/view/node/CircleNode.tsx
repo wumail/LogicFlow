@@ -10,9 +10,9 @@ export type ICircleNodeProps = {
 export class CircleNode extends BaseNode<ICircleNodeProps> {
   getShape() {
     const { model } = this.props
-    const { x, y, r } = model
+    const { r } = model
     const style = model.getNodeStyle()
-    return <Circle {...style} x={x} y={y} r={r} />
+    return <Circle {...style} r={r} />
   }
 }
 
